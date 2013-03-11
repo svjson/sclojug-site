@@ -7,9 +7,21 @@
                  [ring/ring-jetty-adapter "1.1.0"]
                  [fogus/ring-edn "0.2.0-SNAPSHOT"]
                  [bultitude "0.1.7"]]
-  :plugins [[lein-ring "0.8.3"]]
+  :plugins [[lein-cljsbuild "0.3.0"]
+            [lein-ring "0.8.3"]]
   :ring {:handler sclojug-site.handler/war-handler}
   :main sclojug-site.server
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.3"]
-                        [ring/ring-devel "1.1.0"]]}})
+                        [webfui "0.2.1"]
+                        [ring/ring-devel "1.1.0"]]}}
+  :cljsbuild {
+    :builds [{
+        ; The path to the top-level ClojureScript source directory:
+        :source-paths ["src-cljs"]
+        ; The standard ClojureScript compiler options:
+        ; (See the ClojureScript compiler documentation for details.)
+        :compiler {
+          :output-to "resources/public/js/main.js"  ; default: target/cljsbuild-main.js
+          :optimizations :whitespace
+          :pretty-print true}}]})

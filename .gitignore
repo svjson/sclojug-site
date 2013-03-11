@@ -1,5 +1,6 @@
 /target
 /lib
+/resources/public/js/main.js
 /classes
 /checkouts
 pom.xml
