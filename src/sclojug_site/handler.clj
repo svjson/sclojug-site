@@ -21,8 +21,10 @@
 (defn home [] 
   (common/layout [:h1 "Login"]
                  [:div
-                  [:a {:href (:uri (oauth/get-login-url))} "Login with your Google-account"]
-                  [:a {:href "/food/available"} "Välj mat"]]))
+                  [:p
+                   [:a {:href (:uri (oauth/get-login-url))} "Login with your Google-account"]]
+                  [:p
+                   [:a {:href "/food/available"} "Välj mat"]]]))
 
 (defn echo [name params]
   {:status 200
