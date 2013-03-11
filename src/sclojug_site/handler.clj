@@ -10,10 +10,21 @@
             [sclojug-site.util.oauth :as oauth]
             [clj-json.core :as json]))
 
+
+(defn available-food []
+  {:status 200
+   :body (pr-str [{:name "Vegetarian"}
+            {:name "Vegan"}
+            {:name "LCHF"}
+            {:name "Kött"}
+            {:name "Fisk"}])})
 (defn home [] 
   (common/layout [:h1 "Login"]
                  [:div
-                  [:a {:href (:uri (oauth/get-login-url))} "Login with your Google-account"]]))
+                  [:p
+                   [:a {:href (:uri (oauth/get-login-url))} "Login with your Google-account"]]
+                  [:p
+                   [:a {:href "/food/available"} "Välj mat"]]]))
 
 (defn echo [name params]
   {:status 200
@@ -30,6 +41,9 @@
   (GET "/echo/:name"
        [name :as {params :params}]
        (echo name params))
+  (GET "/food/available"
+       []
+       (available-food))
 
   (route/resources "/")
 

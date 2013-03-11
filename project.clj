@@ -16,7 +16,9 @@
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.3"]
                         [webfui "0.2.1"]
-                        [ring/ring-devel "1.1.0"]]}}
+                        [midje "1.5.0"]
+                        [ring/ring-devel "1.1.0"]]
+         :plugins [[lein-midje "3.0.0"]]}}
   :cljsbuild {
     :builds [{
         ; The path to the top-level ClojureScript source directory:
