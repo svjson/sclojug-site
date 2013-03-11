@@ -5,6 +5,8 @@
                  [compojure "1.1.3"]
                  [hiccup "1.0.2"]
                  [ring/ring-jetty-adapter "1.1.0"]
+                 [clj-json "0.5.3"]
+                 [stuarth/clj-oauth2 "0.3.2"]
                  [fogus/ring-edn "0.2.0-SNAPSHOT"]
                  [bultitude "0.1.7"]]
   :plugins [[lein-cljsbuild "0.3.0"]
