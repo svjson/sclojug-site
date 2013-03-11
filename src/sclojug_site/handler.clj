@@ -2,6 +2,7 @@
   (:use compojure.core                
         ring.middleware.resource
         ring.middleware.file-info
+        ring.middleware.edn
         hiccup.middleware)
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
@@ -14,11 +15,21 @@
                  [:div
                   [:a {:href (:uri (oauth/get-login-url))} "Login with your Google-account"]]))
 
+(defn echo [name params]
+  {:status 200
+   :headers {"Content-Type" "application/edn"}
+   :body (pr-str {:name name
+                  :params params})})
+
 (defroutes app-routes
   (GET "/" [] (home))
   (GET "/oauth2callback" {params :params session :session} (let [user-info (oauth/get-user-info (oauth/get-access-token params))]
                                                              (common/layout 
                                                               [:div (str "Hej, " (:email (json/parse-string (:body user-info) true)))])))
+
+  (GET "/echo/:name"
+       [name :as {params :params}]
+       (echo name params))
 
   (route/resources "/")
 
@@ -28,8 +39,9 @@
 
 (def war-handler 
   (-> app    
-    (wrap-resource "public") 
-    (wrap-base-url)
-    (wrap-file-info)))
-  
+      (wrap-resource "public")
+      (wrap-edn-params)
+      (wrap-base-url)
+      (wrap-file-info)))
+
 
