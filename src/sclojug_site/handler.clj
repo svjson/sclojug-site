@@ -8,7 +8,9 @@
             [sclojug-site.common :as common]))
 
 (defn home [] 
-  (common/layout [:h1 "Hello World!"]))
+  (common/layout [:h1 "Login"]
+                 [:div
+                  [:input {:type "text" :name "username" :placeholder "Username"}]]))
 
 (defroutes app-routes
   (GET "/" [] (home))
