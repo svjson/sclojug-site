@@ -9,7 +9,17 @@
             [sclojug-site.common :as common]))
 
 (defn home []
-  (common/layout [:h1 "Hello World!"]))
+  (common/layout [:div
+                  [:a {:href "/food/available"} "Välj mat"]
+                  [:h1 "Hello World!"]]))
+
+(defn available-food []
+  {:status 200
+   :body (pr-str [{:name "Vegetarian"}
+            {:name "Vegan"}
+            {:name "LCHF"}
+            {:name "Kött"}
+            {:name "Fisk"}])})
 
 (defn echo [name params]
   {:status 200
@@ -22,6 +32,9 @@
   (GET "/echo/:name"
        [name :as {params :params}]
        (echo name params))
+  (GET "/food/available"
+       []
+       (available-food))
   (route/resources "/")
   (route/not-found "Not Found"))
 

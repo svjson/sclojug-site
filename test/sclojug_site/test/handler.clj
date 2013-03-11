@@ -1,14 +1,24 @@
 (ns sclojug-site.test.handler
-  (:use clojure.test
+  (:use midje.sweet
         ring.mock.request  
         sclojug-site.handler))
 
-(deftest test-app
-  (testing "main route"
-    (let [response (app (request :get "/"))]
-      (is (= (:status response) 200))
-      (is (= (:body response) "Hello World"))))
-  
-  (testing "not-found route"
-    (let [response (app (request :get "/invalid"))]
-      (is (= (:status response) 404)))))
+(fact "ett test"
+      1 => 1)
+
+(fact "ett annat"
+      (second [1 2]) => 2
+      (first [1 2]) => 1)
+
+(defn eval-body-of [response]
+  (read-string (:body response)))
+
+(def food-request
+  {:request-method :get
+   :uri "/food/available"})
+
+(fact "food route is a vector"
+      (eval-body-of
+       (app food-request)) => vector?
+      (eval-body-of
+       (app food-request)) => (has every? :name))
