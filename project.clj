@@ -6,7 +6,7 @@
                  [hiccup "1.0.2"]
                  [ring/ring-jetty-adapter "1.1.0"]
                  [bultitude "0.1.7"]]
-  :plugins [[lein-ring "0.7.5"]]
+  :plugins [[lein-ring "0.8.3"]]
   :ring {:handler sclojug-site.handler/war-handler}
   :main sclojug-site.server
   :profiles
