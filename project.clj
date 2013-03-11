@@ -6,7 +6,8 @@
                  [hiccup "1.0.2"]
                  [ring/ring-jetty-adapter "1.1.0"]
                  [bultitude "0.1.7"]
-                 [clj-oauth2 "0.3.0"]]
+                 [clj-json "0.5.3"]
+                 [stuarth/clj-oauth2 "0.3.2"]]
   :plugins [[lein-cljsbuild "0.3.0"]
             [lein-ring "0.8.3"]]
   :ring {:handler sclojug-site.handler/war-handler}
