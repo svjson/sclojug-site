@@ -6,7 +6,7 @@
 (def google-oauth2
   {:authorization-uri (str login-uri "/o/oauth2/auth")
    :access-token-uri (str login-uri "/o/oauth2/token")
-   :redirect-uri "http://localhost:3000/oauth2callback"
+   :redirect-uri "http://localhost:8080/oauth2callback"
    :client-id "832476044277.apps.googleusercontent.com"
    :client-secret "LSSTFQv8-t2mzLVXbxdagFvN"
    :access-query-param :access_token
@@ -14,7 +14,7 @@
    :grant-type "authorization_code"
    :access-type "online"
    :approval_prompt "Banana?"})
-  
+
 (defn get-login-url []
   (oauth2/make-auth-request google-oauth2))
 

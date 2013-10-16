@@ -1,5 +1,5 @@
 (ns sclojug-site.handler
-  (:use compojure.core                
+  (:use compojure.core
         ring.middleware.resource
         ring.middleware.file-info
         ring.middleware.edn
@@ -13,12 +13,13 @@
 
 (defn available-food []
   {:status 200
-   :body (pr-str [{:name "Vegetarian"}
-            {:name "Vegan"}
-            {:name "LCHF"}
-            {:name "Kött"}
-            {:name "Fisk"}])})
-(defn home [] 
+   :body (pr-str
+          [{:name "Vegetarian"}
+           {:name "Vegan"}
+           {:name "LCHF"}
+           {:name "Kött"}
+           {:name "Fisk"}])})
+(defn home []
   (common/layout [:h1 "Login"]
                  [:div
                   [:p
@@ -34,8 +35,9 @@
 
 (defroutes app-routes
   (GET "/" [] (home))
-  (GET "/oauth2callback" {params :params session :session} (let [user-info (oauth/get-user-info (oauth/get-access-token params))]
-                                                             (common/layout 
+  (GET "/oauth2callback" {params :params session :session}
+       (let [user-info (oauth/get-user-info (oauth/get-access-token params))]
+                                                             (common/layout
                                                               [:div (str "Hej, " (:email (json/parse-string (:body user-info) true)))])))
 
   (GET "/echo/:name"
@@ -51,11 +53,9 @@
 
 (def app (handler/site app-routes))
 
-(def war-handler 
-  (-> app    
+(def war-handler
+  (-> app
       (wrap-resource "public")
       (wrap-edn-params)
       (wrap-base-url)
       (wrap-file-info)))
-
-
